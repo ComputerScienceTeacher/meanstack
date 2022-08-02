@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	include head.jade
+	h1= title
+	p Welcome to #{title}
+	
+	h3.
+		Sermons
+	ul
+		each sermon, i in sermonlist
+			li#student_list_item
+			a(href='#') #{sermon.name} preached on #{sermon.date} using text #{sermon.passage}

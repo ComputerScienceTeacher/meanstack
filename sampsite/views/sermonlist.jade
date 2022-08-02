@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	include head.jade
+	
+	h3.
+		Sermons
+	ul
+		each sermon, i in sermonlist
+			p #{sermon.name} preached on #{sermon.date} using #{sermon.passage}

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	include head.jade
+	h1= title
+	p Welcome to #{title}
+	form(method='post', action='/addnew', name ='addNewForm', ng-submit="submit()")
+		div(ng-app="")
+			p Sermon Name:
+				input(type='text', name='sermonname', ng-model='sermonname')
+			p Date preached:
+				input(type='date', name='sermondate', ng-model='sermondate')
+			p Text used:
+				input(type='text', name='scripture', ng-model='scripture')
+		h2 {{scripture}} is a good text! 
+		
+		button.btn.btn-primary.form-control(type='submit',ng-disabled="addNewForm.$invalid") SUBMIT
+		button.btn.form-control(type='Reset') RESET

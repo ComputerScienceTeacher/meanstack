@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	include head.jade
+	h1= title
+	p Welcome to #{title}
+	
+	
+	
+	
+	
+	
+	button.btn.btn-primary.form-control(type='submit',ng-disabled="addNewForm.$invalid") SUBMIT
+	button.btn.form-control(type='Reset') RESET
