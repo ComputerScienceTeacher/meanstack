@@ -4,7 +4,7 @@ block content
 	include head.jade
 	h1= title
 	p Welcome to #{title}
-	form(method='post', action='/addnew', name ='addNewForm', ng-submit="submit()")
+	form(method='post', action='/addnewdata', name ='addNewForm', ng-submit="submit()")
 		div(ng-app="")
 			p Sermon Name:
 				input(type='text', name='sermonname', ng-model='sermonname')

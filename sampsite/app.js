@@ -7,7 +7,6 @@ var mongo = require('mongodb');
 
 //routes
 var indexRouter = require('./routes/index');
-var addNewRouter = require('./routes/addnew');
 var usersRouter = require('./routes/users');
 
 var app = express();

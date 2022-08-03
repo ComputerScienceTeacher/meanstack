@@ -8,18 +8,40 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET addNew page. */
-router.get('/addnew', function(req, res, next) {
-  res.render('addnewdata', { title: 'Add New Record' });
-});
-
-/* GET viewRecord page. */
-router.get('/viewrecords', function(req, res, next) {
-  res.render('viewrecords', { title: 'View Records' });
+router.get('/addnew', function(req, res)  {
+  res.render('addnew', { title: 'Add New Record' });
 });
 
 /* GET deleteRecord page. */
 router.get('/deleterecord', function(req, res, next) {
   res.render('deleterecord', { title: 'Delete Record' });
+});
+
+/* POST data to server. */
+router.post('/addnewdata', function(req,res){
+	
+	var MongoClient = mongodb.MongoClient;
+	
+	var url = "mongodb://localhost";
+	
+	MongoClient.connect(url, function(err, client){
+		if(err) {
+			console.log('Unable to connect to the Server', err);
+		} else {
+			console.log('Connection established to', url);
+			var db = client.db('sampsite');
+			var collection = db.collection('sermon');
+			var sermon1 = {name: req.body.sermonname, date: req.body.sermondate, passage: req.body.scripture};
+			collection.insertOne([sermon1], function(err, result){
+				if (err){
+					console.log(err);
+				}else{
+					res.redirect("/thelist");
+				}
+			});
+			client.close();
+		}
+	});
 });
 
 /* GET the list */
