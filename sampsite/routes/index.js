@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
 
@@ -19,10 +19,11 @@ router.get('/deleterecord', function(req, res, next) {
 
 /* POST data to server. */
 router.post('/addnewdata', function(req,res){
-	
+	console.log('Post a new record');
+	console.log(req.body);
 	var MongoClient = mongodb.MongoClient;
 	
-	var url = "mongodb://localhost";
+	var url = 'mongodb://localhost:27017/sampsite';
 	
 	MongoClient.connect(url, function(err, client){
 		if(err) {
@@ -30,17 +31,18 @@ router.post('/addnewdata', function(req,res){
 		} else {
 			console.log('Connection established to', url);
 			var db = client.db('sampsite');
-			var collection = db.collection('sermon');
+			let collection = db.collection('sermon');
 			var sermon1 = {name: req.body.sermonname, date: req.body.sermondate, passage: req.body.scripture};
+			console.log(sermon1);
 			collection.insertOne([sermon1], function(err, result){
 				if (err){
-					console.log(err);
+					console.log('Insertion failed:', err);
 				}else{
 					res.redirect("/thelist");
 				}
 			});
-			client.close();
 		}
+		client.close();
 	});
 });
 
@@ -49,7 +51,7 @@ router.get('/thelist', function(req,res){
 	
 	var MongoClient = mongodb.MongoClient;
 	
-	var url = 'mongodb://localhost';
+	var url = 'mongodb://localhost:27017/sampsite';
 	
 	MongoClient.connect(url, function(err, client){
 		if(err) {
